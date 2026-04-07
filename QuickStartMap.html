@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>University of Oregon Mapping</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!--    Include the reference to the Mapbox JavaScript here in the <head> of the page  (Part I.1)  -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
+
+    <!--    Include the reference to the Mapbox CSS here in between <head> tags    (Part I.2) -->
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Insert the additional CSS code here between the <style> tags  (Part I.4)   */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      #banner {
+        z-index: 9999;
+        background-color: green;
+        opacity: 80%;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--  Insert the map div here in the <body> of the page  (Part I)  -->
+    <div id="map"></div>
+
+    <!--  Insert the title div here (part VI) -->
+    <div id="banner">
+      <h1>UO in PDX</h1>
+      <h2>By: Paul N</h2>
+    </div>
+
+    <script>
+      // Insert the JavaScript within the <script> tags, within the body
+      // Start with the Mapbox access token here (Part 2.1)
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbmY2bTJzYTA3MzUycG5hcXFmMzIzemkifQ.PRYMITPnkL-dduQ9bivpvg";
+
+      // Then initialize the map here (Part 2.2)
+      var map = new mapboxgl.Map({
+        container: "map", // id of a div on your page, where the map will be inserted
+        style: "mapbox://styles/mapbox/satellite-v9", // stylesheet location
+        center: [-122.6788, 45.5212], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+        zoom: 11, // starting zoom
+        // zoom: 8,
+        // center: [-74.5447, 40.6892],
+      });
+
+      map.on("load", function () {
+        map.addSource("wms-test-source", {
+          type: "raster",
+          // use the tiles option to specify a WMS tile source URL
+          // https://docs.mapbox.com/mapbox-gl-js/style-spec/sources/
+          tiles: [
+            "https://img.nj.gov/imagerywms/Natural2015?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=Natural2015",
+          ],
+          tileSize: 256,
+        });
+        map.addLayer(
+          {
+            id: "wms-test-layer",
+            type: "raster",
+            source: "wms-test-source",
+            paint: {},
+          },
+          "aeroway-line",
+        );
+      });
+
+      // Add the zoom contols here (part V)
+      map.addControl(
+        new mapboxgl.NavigationControl({
+          showCompass: false,
+        }),
+        "bottom-left",
+      );
+
+      // Add popups for markers here. Yes, before the markers!  (part IV)
+      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        "Hello World. Welcome to Portland!",
+      );
+
+      // Add any other variables such as markers here (part III)
+      var marker = new mapboxgl.Marker({ color: "red" })
+        .setLngLat([-122.6788, 45.5212])
+        .setPopup(popup)
+        .addTo(map);
+      var marker2 = new mapboxgl.Marker({ color: "orange" })
+        .setLngLat([-122.69, 45.55])
+        .addTo(map);
+      var markerUO = new mapboxgl.Marker({ color: "green" })
+        .setLngLat([-122.67103983300761, 45.5256269789183])
+        .addTo(map);
+
+      var popup_layer = new mapboxgl.Popup({
+        closeOnClick: true,
+        anchor: "top-left",
+      })
+        .setLngLat([-122.67103983300761, 45.5256269789183]) //popup coordinates
+        .setHTML('<a href="https://pdx.uoregon.edu">UO PDX</a>') //popup text
+        .addTo(map); //add this popup to the map!
+
+      // Add optional advanced "On load" function here
+    </script>
+  </body>
+</html>
