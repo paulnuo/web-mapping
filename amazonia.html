@@ -1,233 +1,293 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Amazonia Deforestation</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-    <head>
-        <meta charset='utf-8' />
-        <title>Owners vs Renters Map</title>
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
-        <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet">
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
 
-            #map {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                width: 100%;
-            }
+      button {
+        width: 188px;
+      }
 
-            button {
-                width: 188px;
-            }
+      button img {
+        height: 4.8em;
+      }
 
-            button img {
-                height: 4.8em
-            }
+      /*  style for paragraph tags */
+      p {
+        color: white;
+      }
 
-            /*  style for paragraph tags */
-            p {
-                color: white;
-            }
+      /* style for heading level 4 tags */
+      h1 {
+        color: white;
+        margin-left: 10px;
+        font-size: 2em;
+      }
 
-            /* style for heading level 4 tags */
-            h4 {
-                color: white;
-                margin-left: 10px;
-            }
+      .grid {
+        align-items: center;
+      }
 
-            .grid {
-                align-items: center;
-            }
+      /*  style for items with the class "LegendContainer" */
+      .LegendContainer {
+        position: absolute;
+        bottom: 20px;
+        left: 26%;
+        z-index: 2;
+        width: 48%;
+        height: 40px;
+        background: rgba(80, 80, 80, 0.75);
+        transition:
+          width 2s,
+          height 2s;
+        /* this is the time it takes for the container to transition */
+        border-radius: 7px;
+      }
 
-            /*  style for items with the class "LegendContainer" */
-            .LegendContainer {
-                position: absolute;
-                bottom: 20px;
-                left: 30%;
-                z-index: 2;
-                width: 40%;
-                height: 40px;
-                background: rgba(80, 80, 80, .75);
-                transition: width 2s, height 2s;
-                /* this is the time it takes for the container to transition */
-                border-radius: 7px;
-            }
+      /*  style for items with the class "descriptionPanel" */
+      .descriptionPanel {
+        position: absolute;
+        bottom: 65px;
+        left: 26%;
+        z-index: 2;
+        width: 48%;
+        height: 40px;
+        background: rgba(80, 80, 80, 0.75);
+        transition:
+          width 2s,
+          height 2s;
+        overflow: hidden;
+        border-radius: 7px;
+      }
 
-            /*  style for items with the class "descriptionPanel" */
-            .descriptionPanel {
-                position: absolute;
-                bottom: 65px;
-                left: 30%;
-                z-index: 2;
-                width: 40%;
-                height: 40px;
-                background: rgba(80, 80, 80, .75);
-                transition: width 2s, height 2s;
-                overflow: hidden;
-                border-radius: 7px;
-            }
+      /* style for items with the class "legendItem" */
+      .legendItem {
+        margin: 0px;
+        padding-left: 3%;
+        display: inline-block;
+        margin: auto;
+        transform: translate(50%, 50%);
+      }
 
-            /*  style for items with the class "descriptionPanel" when active */
-            .LegendContainer:active {
-                width: 40%;
-                height: 250px;
-            }
+      /* style for items with the class "layerDescription" */
+      .layerDescription {
+        color: white;
+        padding-left: 10px;
+      }
 
-            /* style for items with the class "legendItem" */
-            .legendItem {
-                margin: 0px;
-                padding-left: 10px;
-                display: inline-block;
-                margin: auto;
-                transform: translate(50%, 50%);
-            }
+      /* legend colors */
+      .forest {
+        color: #229352;
+      }
 
+      .shrub {
+        color: #74d64b;
+      }
 
-            /* style for items with the class "layerDescription" */
-            .layerDescription {
-                color: white;
-                padding-left: 10px;
-            }
+      .deforest {
+        color: red;
+      }
 
+      .farm {
+        color: #fffdcd;
+      }
 
-            /* legend colors */
-            .renter {
-                color: #ffff99;
-            }
+      .nonveg {
+        color: black;
+      }
 
-            .owner {
-                color: #7fc97f;
-            }
+      .water {
+        color: #2933f5;
+      }
 
-            /* style for items with the class "chevron" */
-            .chevron {
-                position: relative;
-                margin-left: 45%;
-                font-size: x-large;
-                color: white;
-            }
-        </style>
-    </head>
+      /* style for items with the class "chevron" */
+      .chevron {
+        position: relative;
+        margin-left: 45%;
+        font-size: x-large;
+        color: white;
+      }
+    </style>
+  </head>
 
-    <body>
+  <body>
+    <div id="map"></div>
 
-        <div id='map'></div>
-
-        <div class="grid" style="position: absolute; top: 20px;">
+    <div class="grid" style="position: absolute; top: 20px">
+      <div>
+        <button>
+          <div class="grid">
             <div>
-                <button>
-                    <div class="grid">
-                        <div>
-                            <img src="images/Lula.jpg">             
-                        </div>
-                        <div>
-                            Lula da Silva
-                            <br>
-                            <strong>2003 - 2010</strong>
-                        </div>
-                    </div>
-                </button>
-            </div>
-            <div>
-                <button>
-                    <div class="grid">
-                        <div>
-                            <img src="images/Lula.jpg">             
-                        </div>
-                        <div>
-                            Lula da Silva
-                            <br>
-                            <strong>2003 - 2010</strong>
-                        </div>
-                    </div>
-                </button>
-            </div>
-            <div>
-                <button>
-                    <div class="grid">
-                        <div>
-                            <img src="images/Lula.jpg">             
-                        </div>
-                        <div>
-                            Lula da Silva
-                            <br>
-                            <strong>2003 - 2010</strong>
-                        </div>
-                    </div>
-                </button>
+              <img src="images/Lula.jpg" />
             </div>
             <div>
-                <button>
-                    <div class="grid">
-                        <div>
-                            <img src="images/Lula.jpg">             
-                        </div>
-                        <div>
-                            Lula da Silva
-                            <br>
-                            <strong>2003 - 2010</strong>
-                        </div>
-                    </div>
-                </button>
+              Lula da Silva
+              <br />
+              <strong>2003 - 2010</strong>
             </div>
-        </div>
-
-        <!-- Info Section -->
-        <div class="descriptionPanel" id="descriptionPanel" style="height: 250px;">
-            <span onClick=panelSelect() id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
-            <hr />
-            <h4>WHAT AM I LOOKING AT?</h4>
-            <p style="margin-left: 10px; margin-right: 10px;">
-                This is a map showing every single person in the Portland Area as a dot. Data is taken from the 2017 US Census, and is accurate at the level of a block; however, within each block location is randomized. Points are colored based on the number of homeowners versus renters on a block.
-            </p>
-        </div>
-
-        <!-- Legend Section -->
-        <div class="LegendContainer">
-            <div class="legendItem">
-                <span class="owner">&#11044;</span>
-                <span class="layerDescription">Owners</span>
+          </div>
+        </button>
+      </div>
+      <div>
+        <button>
+          <div class="grid">
+            <div>
+              <img src="images/Lula.jpg" />
             </div>
-            <div class="legendItem">
-                <span class="renter">&#11044;</span>
-                <span class="layerDescription">Renters</span>
+            <div>
+              Lula da Silva
+              <br />
+              <strong>2003 - 2010</strong>
             </div>
-        </div>
+          </div>
+        </button>
+      </div>
+      <div>
+        <button>
+          <div class="grid">
+            <div>
+              <img src="images/Lula.jpg" />
+            </div>
+            <div>
+              Lula da Silva
+              <br />
+              <strong>2003 - 2010</strong>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div>
+        <button>
+          <div class="grid">
+            <div>
+              <img src="images/Lula.jpg" />
+            </div>
+            <div>
+              Lula da Silva
+              <br />
+              <strong>2003 - 2010</strong>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
 
-        <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbm54N3RuczIwMHIycW9rOTBrdXJheHoifQ.LszPGylmohpaqmf4T5fbaA';
-            var map = new mapboxgl.Map({
-                container: 'map', // container id
-                center: [-122.7, 45.4],
-                zoom: 9, // starting zoom 
-                style: 'mapbox://styles/paulen/cmo1u9xb7000201rlbkq0205x' // stylesheet location
-            });
+    <!-- Info Section -->
+    <div class="descriptionPanel" id="descriptionPanel" style="height: 26px">
+      <span
+        onClick="panelSelect()"
+        id="glyph"
+        class="chevron glyphicon glyphicon-chevron-up"
+      ></span>
+      <h1>Amazonia</h1>
+      <p style="margin-left: 10px; margin-right: 10px">
+        This is a map showing every single person in the Portland Area as a dot.
+        Data is taken from the 2017 US Census, and is accurate at the level of a
+        block; however, within each block location is randomized. Points are
+        colored based on the number of homeowners versus renters on a block.
+      </p>
+    </div>
 
-            // Add zoom and rotation controls to the map.
-            map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+    <!-- Legend Section -->
+    <div class="LegendContainer">
+      <div class="legendItem">
+        <span class="forest">&#11044;</span>
+        <span class="layerDescription">Forest</span>
+      </div>
+      <div class="legendItem">
+        <span class="shrub">&#11044;</span>
+        <span class="layerDescription">Shrubland</span>
+      </div>
+      <div class="legendItem">
+        <span class="deforest">&#11044;</span>
+        <span class="layerDescription">Deforested</span>
+      </div>
+      <div class="legendItem">
+        <span class="farm">&#11044;</span>
+        <span class="layerDescription">Farmland</span>
+      </div>
+      <div class="legendItem">
+        <span class="nonveg">&#11044;</span>
+        <span class="layerDescription">Non-Veg</span>
+      </div>
+      <div class="legendItem">
+        <span class="water">&#11044;</span>
+        <span class="layerDescription">Water</span>
+      </div>
+    </div>
 
-            var state = { panelOpen: true };
+    <script>
+      var bounds = [
+        [-72, -14], // Southwest coordinates
+        [-46, 4], // Northeast coordinates
+      ];
 
-            // Legend Control
-            function panelSelect(e) {
-                if (state.panelOpen) {
-                    document.getElementById('descriptionPanel').style.height = '26px';
-                    document.getElementById('glyph').className = "chevron glyphicon glyphicon-chevron-up";
-                    state.panelOpen = false;
-                } else {
-                    document.getElementById('descriptionPanel').style.height = '250px';
-                    document.getElementById('glyph').className = "chevron glyphicon glyphicon-chevron-down";
-                    state.panelOpen = true;
-                }
-            }
-        </script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbmY2bTJzYTA3MzUycG5hcXFmMzIzemkifQ.PRYMITPnkL-dduQ9bivpvg";
+      var map = new mapboxgl.Map({
+        container: "map", // container id
+        center: [-58.6, -4.48],
+        zoom: 5, // starting zoom
+        style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u", // stylesheet location
+        minZoom: 5,
+        maxZoom: 10,
+        maxBounds: bounds,
+      });
 
-    </body>
+      //   map.fitBounds(bounds, {
+      //     padding: 20,
+      //   });
 
+      // Add zoom and rotation controls to the map.
+      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+      var state = { panelOpen: false };
+
+      // Legend Control
+      function panelSelect(e) {
+        if (state.panelOpen) {
+          document.getElementById("descriptionPanel").style.height = "26px";
+          document.getElementById("glyph").className =
+            "chevron glyphicon glyphicon-chevron-up";
+          state.panelOpen = false;
+        } else {
+          document.getElementById("descriptionPanel").style.height = "250px";
+          document.getElementById("glyph").className =
+            "chevron glyphicon glyphicon-chevron-down";
+          state.panelOpen = true;
+        }
+      }
+    </script>
+  </body>
 </html>
