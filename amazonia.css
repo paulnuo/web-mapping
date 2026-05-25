@@ -1,0 +1,167 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+button {
+  width: 180px;
+  box-shadow: inset 0px 0px 20px 0px blue;
+  border-radius: 30px;
+}
+
+button img {
+  height: 4.8em;
+}
+
+button .grid {
+  grid-column-gap: 0;
+}
+
+img {
+  border-radius: 10px;
+}
+
+/*  style for paragraph tags */
+p {
+  color: white;
+}
+
+/* style for heading level 4 tags */
+h1 {
+  color: white;
+  margin-left: 10px;
+  font-size: 1.8em;
+}
+
+table {
+  color: white;
+  background-color: black;
+}
+
+/* style for items with the class "chevron" */
+.chevron {
+  position: relative;
+  margin-left: 45%;
+  font-size: x-large;
+  color: white;
+}
+
+.grid {
+  align-items: center;
+}
+
+.grid > div:nth-child(2) {
+  text-align: left;
+}
+
+/*  style for items with the class "LegendContainer" */
+#legened-panel {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  z-index: 2;
+  width: 102px;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.48);
+  transition:
+    width 2s,
+    height 2s;
+  /* this is the time it takes for the container to transition */
+  border-radius: 7px;
+}
+
+/* style for items with the class "legendItem" */
+.legend-item {
+  padding-left: 4px;
+  /* transform: translate(50%, 50%); */
+}
+
+/* style for items with the class "layerDescription" */
+.item-label {
+  color: white;
+  padding-left: 10px;
+}
+
+.period {
+  position: absolute;
+  top: 4px;
+}
+
+/*  style for items with the class "descriptionPanel" */
+#info-panel {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  color: white;
+  width: 228px;
+  height: 58px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.68);
+  transition:
+    width 2s,
+    height 2s;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#info-panel p {
+  margin: 0 10px;
+}
+
+div[id$="info"] {
+  display: none;
+}
+
+#glyph {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+
+/* legend colors */
+#forest {
+  color: #229352;
+}
+
+#shrub {
+  color: #74d64b;
+}
+
+#deforest {
+  color: red;
+}
+
+#farm {
+  color: #fffdcd;
+}
+
+#nonveg {
+  color: black;
+}
+
+#water {
+  color: #2933f5;
+}
+
+@media (max-width: 768px) {
+  button {
+    width: 140px;
+  }
+
+  button img {
+    display: none;
+  }
+
+  .grid > div:nth-child(2) {
+    text-align: center;
+  }
+}

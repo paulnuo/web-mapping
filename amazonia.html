@@ -7,154 +7,55 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
+    <!-- Mapbox Files -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <!-- Pico CSS -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.green.min.css"
     />
+    <!-- Bootstrap CSS -->
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous"
     />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-
-      button {
-        width: 188px;
-      }
-
-      button img {
-        height: 4.8em;
-      }
-
-      /*  style for paragraph tags */
-      p {
-        color: white;
-      }
-
-      /* style for heading level 4 tags */
-      h1 {
-        color: white;
-        margin-left: 10px;
-        font-size: 2em;
-      }
-
-      .grid {
-        align-items: center;
-      }
-
-      /*  style for items with the class "LegendContainer" */
-      .LegendContainer {
-        position: absolute;
-        bottom: 20px;
-        left: 26%;
-        z-index: 2;
-        width: 48%;
-        height: 40px;
-        background: rgba(80, 80, 80, 0.75);
-        transition:
-          width 2s,
-          height 2s;
-        /* this is the time it takes for the container to transition */
-        border-radius: 7px;
-      }
-
-      /*  style for items with the class "descriptionPanel" */
-      .descriptionPanel {
-        position: absolute;
-        bottom: 65px;
-        left: 26%;
-        z-index: 2;
-        width: 48%;
-        height: 40px;
-        background: rgba(80, 80, 80, 0.75);
-        transition:
-          width 2s,
-          height 2s;
-        overflow: hidden;
-        border-radius: 7px;
-      }
-
-      /* style for items with the class "legendItem" */
-      .legendItem {
-        margin: 0px;
-        padding-left: 3%;
-        display: inline-block;
-        margin: auto;
-        transform: translate(50%, 50%);
-      }
-
-      /* style for items with the class "layerDescription" */
-      .layerDescription {
-        color: white;
-        padding-left: 10px;
-      }
-
-      /* legend colors */
-      .forest {
-        color: #229352;
-      }
-
-      .shrub {
-        color: #74d64b;
-      }
-
-      .deforest {
-        color: red;
-      }
-
-      .farm {
-        color: #fffdcd;
-      }
-
-      .nonveg {
-        color: black;
-      }
-
-      .water {
-        color: #2933f5;
-      }
-
-      /* style for items with the class "chevron" */
-      .chevron {
-        position: relative;
-        margin-left: 45%;
-        font-size: x-large;
-        color: white;
-      }
-    </style>
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="amazonia.css" />
   </head>
 
   <body>
     <div id="map"></div>
 
-    <div class="grid" style="position: absolute; top: 20px">
+    <div
+      class="grid"
+      style="
+        position: absolute;
+        top: 28px;
+        left: 28px;
+        grid-template-columns: 1fr;
+      "
+    >
       <div>
-        <button>
+        <button id="1994-button" onClick="selectPeriod('1994')">
+          <strong>1994</strong>
+        </button>
+      </div>
+      <div>
+        <button id="cardoso-button" onClick="selectPeriod('cardoso')">
           <div class="grid">
             <div>
-              <img src="images/Lula.jpg" />
+              <img src="images/Cardoso.jpg" />
             </div>
             <div>
-              Lula da Silva
+              Fernando Cardoso
               <br />
-              <strong>2003 - 2010</strong>
+              <strong>1995 - 2002</strong>
             </div>
           </div>
         </button>
@@ -177,12 +78,12 @@
         <button>
           <div class="grid">
             <div>
-              <img src="images/Lula.jpg" />
+              <img src="images/Dilma.jpg" />
             </div>
             <div>
-              Lula da Silva
+              Dilma Rousseff
               <br />
-              <strong>2003 - 2010</strong>
+              <strong>2011 - 2016</strong>
             </div>
           </div>
         </button>
@@ -191,66 +92,122 @@
         <button>
           <div class="grid">
             <div>
-              <img src="images/Lula.jpg" />
+              <img src="images/Temer.jpg" />
             </div>
             <div>
-              Lula da Silva
+              Michel Temer
               <br />
-              <strong>2003 - 2010</strong>
+              <strong>2017 - 2018</strong>
             </div>
           </div>
+        </button>
+      </div>
+      <div>
+        <button>
+          <div class="grid">
+            <div>
+              <img src="images/Jair.jpg" />
+            </div>
+            <div>
+              Jair Bolsonaro
+              <br />
+              <strong>2019 - 2023</strong>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div>
+        <button>
+          <strong>2024</strong>
         </button>
       </div>
     </div>
 
     <!-- Info Section -->
-    <div class="descriptionPanel" id="descriptionPanel" style="height: 26px">
-      <span
-        onClick="panelSelect()"
-        id="glyph"
-        class="chevron glyphicon glyphicon-chevron-up"
-      ></span>
+    <div id="info-panel" onClick="togglePanel()">
+      <span id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
       <h1>Amazonia</h1>
-      <p style="margin-left: 10px; margin-right: 10px">
-        This is a map showing every single person in the Portland Area as a dot.
-        Data is taken from the 2017 US Census, and is accurate at the level of a
-        block; however, within each block location is randomized. Points are
-        colored based on the number of homeowners versus renters on a block.
-      </p>
+      <div id="info-block"></div>
+      <div id="1994-info">
+        <strong class="period">1994</strong>
+        <table style="color: white; background-color: transparent">
+          <thead>
+            <tr>
+              <th>Cover</th>
+              <th>Area (ha) (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Forest</td>
+              <td>371,083,876 ha (88%)</td>
+            </tr>
+            <tr>
+              <td>Shrubland</td>
+              <td>15,357,801 ha (3.6%)</td>
+            </tr>
+            <tr>
+              <td>Farmland</td>
+              <td>22,376,422 ha (5.3%)</td>
+            </tr>
+            <tr>
+              <td>Non Veg</td>
+              <td>576,948 ha (0.1%)</td>
+            </tr>
+            <tr>
+              <td>Water</td>
+              <td>12,145,444 ha (2.9%)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="cardoso-info">
+        <strong class="period">1995 - 2002</strong>
+        <p><strong>President:</strong> Fernando Cardoso</p>
+        <p><strong>Party:</strong> Brazilian Social Democracy Party (PSDB)</p>
+        <p><strong>Alignment:</strong> Centre-Right</p>
+        <p>
+          <strong>Deforestation Rate:</strong><br />
+          ~2.25 million ha/year
+        </p>
+      </div>
     </div>
 
     <!-- Legend Section -->
-    <div class="LegendContainer">
-      <div class="legendItem">
-        <span class="forest">&#11044;</span>
-        <span class="layerDescription">Forest</span>
+    <div id="legened-panel">
+      <div class="legend-item">
+        <span id="forest">&#11044;</span>
+        <span class="item-label">Forest</span>
       </div>
-      <div class="legendItem">
-        <span class="shrub">&#11044;</span>
-        <span class="layerDescription">Shrubland</span>
+      <div class="legend-item">
+        <span id="shrub">&#11044;</span>
+        <span class="item-label">Shrub</span>
       </div>
-      <div class="legendItem">
-        <span class="deforest">&#11044;</span>
-        <span class="layerDescription">Deforested</span>
+      <div class="legend-item">
+        <span id="deforest">&#11044;</span>
+        <span class="item-label">Deforested</span>
       </div>
-      <div class="legendItem">
-        <span class="farm">&#11044;</span>
-        <span class="layerDescription">Farmland</span>
+      <div class="legend-item">
+        <span id="farm">&#11044;</span>
+        <span class="item-label">Farmland</span>
       </div>
-      <div class="legendItem">
-        <span class="nonveg">&#11044;</span>
-        <span class="layerDescription">Non-Veg</span>
+      <div class="legend-item">
+        <span id="nonveg">&#11044;</span>
+        <span class="item-label">Non Veg</span>
       </div>
-      <div class="legendItem">
-        <span class="water">&#11044;</span>
-        <span class="layerDescription">Water</span>
+      <div class="legend-item">
+        <span id="water">&#11044;</span>
+        <span class="item-label">Water</span>
       </div>
     </div>
 
+    <!-- -73.99,-16.67,-43.39,5.27 -->
     <script>
+      document.getElementById("1994-button")?.focus();
+
       var bounds = [
-        [-72, -14], // Southwest coordinates
-        [-46, 4], // Northeast coordinates
+        [-73.465, -16.4], // Southwest coordinates
+        [-43.95, 5], // Northeast coordinates
       ];
 
       mapboxgl.accessToken =
@@ -258,7 +215,7 @@
       var map = new mapboxgl.Map({
         container: "map", // container id
         center: [-58.6, -4.48],
-        zoom: 5, // starting zoom
+        zoom: 5.3, // starting zoom
         style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u", // stylesheet location
         minZoom: 5,
         maxZoom: 10,
@@ -270,22 +227,49 @@
       //   });
 
       // Add zoom and rotation controls to the map.
-      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      map.addControl(
+        new mapboxgl.NavigationControl({ showCompass: false }),
+        "bottom-left",
+      );
 
-      var state = { panelOpen: false };
+      // Disable rotation via right-click + drag
+      map.dragRotate.disable();
+
+      // Disable rotation via touch gesture
+      map.touchZoomRotate.disableRotation();
+
+      var state = { panelOpen: false, period: "1994" };
+
+      selectPeriod(state.period);
 
       // Legend Control
-      function panelSelect(e) {
+      function togglePanel() {
         if (state.panelOpen) {
-          document.getElementById("descriptionPanel").style.height = "26px";
-          document.getElementById("glyph").className =
-            "chevron glyphicon glyphicon-chevron-up";
-          state.panelOpen = false;
-        } else {
-          document.getElementById("descriptionPanel").style.height = "250px";
+          document.getElementById("info-panel").style.height = "58px";
           document.getElementById("glyph").className =
             "chevron glyphicon glyphicon-chevron-down";
+          state.panelOpen = false;
+        } else {
+          document.getElementById("info-panel").style.height = "200px";
+          document.getElementById("glyph").className =
+            "chevron glyphicon glyphicon-chevron-up";
           state.panelOpen = true;
+        }
+      }
+
+      function selectPeriod(period) {
+        state.period = period;
+        // Update button states
+        document.querySelectorAll(".grid button").forEach((button) => {
+          button.disabled = button.id.startsWith(period);
+        });
+
+        // Update info panel content based on selected period
+        document.getElementById("info-block").innerHTML =
+          document.getElementById(`${period}-info`).innerHTML;
+
+        if (!Number(period) && !state.panelOpen) {
+          togglePanel();
         }
       }
     </script>
