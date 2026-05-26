@@ -201,7 +201,14 @@
       </div>
     </div>
 
-    <!-- -73.99,-16.67,-43.39,5.27 -->
+    <div id="modal" class="container" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.5);">
+    <div style="background:#fff; padding:1rem; max-width:32rem; border-radius:8px;">
+        <button id="close" aria-label="Close" style="float:right;">×</button>
+        <h3>Credits</h3>
+        <p>Modal body content goes here.</p>
+    </div>
+    </div>
+
     <script>
       document.getElementById("1994-button")?.focus();
 
@@ -215,11 +222,12 @@
       var map = new mapboxgl.Map({
         container: "map", // container id
         center: [-58.6, -4.48],
-        zoom: 5.3, // starting zoom
+        zoom: 5.68, // starting zoom
         style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u", // stylesheet location
         minZoom: 5,
         maxZoom: 10,
         maxBounds: bounds,
+        customAttribution: '<a href="#!" onclick="showModal(); return false;" id="open-credits">© Credits</a>'
       });
 
       //   map.fitBounds(bounds, {
@@ -229,7 +237,7 @@
       // Add zoom and rotation controls to the map.
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
-        "bottom-left",
+        "right",
       );
 
       // Disable rotation via right-click + drag
@@ -245,12 +253,12 @@
       // Legend Control
       function togglePanel() {
         if (state.panelOpen) {
-          document.getElementById("info-panel").style.height = "58px";
+          document.getElementById("info-panel").style.height = "64px";
           document.getElementById("glyph").className =
             "chevron glyphicon glyphicon-chevron-down";
           state.panelOpen = false;
         } else {
-          document.getElementById("info-panel").style.height = "200px";
+          document.getElementById("info-panel").style.height = "224px";
           document.getElementById("glyph").className =
             "chevron glyphicon glyphicon-chevron-up";
           state.panelOpen = true;
@@ -272,6 +280,20 @@
           togglePanel();
         }
       }
+
+    // Modal
+    // document.getElementById('open-credits').addEventListener('click', ()=> {
+        function showModal() {
+    document.getElementById('modal').style.display = 'flex';
+    }
+    ['close','save'].forEach(id=>{
+    document.getElementById(id).addEventListener('click', ()=> {
+        document.getElementById('modal').style.display = 'none';
+    });
+    });
+    window.addEventListener('click', e=>{
+    if(e.target.id === 'modal') document.getElementById('modal').style.display = 'none';
+    });
     </script>
   </body>
 </html>

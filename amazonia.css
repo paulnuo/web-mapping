@@ -10,10 +10,15 @@ body {
   width: 100%;
 }
 
+body {
+  font-size: 12pt;
+}
+
 button {
-  width: 180px;
+  width: 200px;
   box-shadow: inset 0px 0px 20px 0px blue;
   border-radius: 30px;
+  color: white;
 }
 
 button img {
@@ -64,29 +69,24 @@ table {
 /*  style for items with the class "LegendContainer" */
 #legened-panel {
   position: absolute;
-  bottom: 28px;
+  top: 28px;
   right: 28px;
   z-index: 2;
-  width: 102px;
-  height: 120px;
-  background: rgba(0, 0, 0, 0.48);
-  transition:
+  width: 160px;
+  height: 198px;
+  background: rgba(0, 0, 0, 0.68);
+  transition: /* this is the time it takes for the container to transition */
     width 2s,
     height 2s;
-  /* this is the time it takes for the container to transition */
+  padding: 18px;
   border-radius: 7px;
-}
-
-/* style for items with the class "legendItem" */
-.legend-item {
-  padding-left: 4px;
-  /* transform: translate(50%, 50%); */
 }
 
 /* style for items with the class "layerDescription" */
 .item-label {
   color: white;
   padding-left: 10px;
+  font-size: 1.2em;
 }
 
 .period {
@@ -98,11 +98,11 @@ table {
 #info-panel {
   position: absolute;
   top: 28px;
-  right: 28px;
+  left: 280px;
   color: white;
-  width: 228px;
-  height: 58px;
-  padding: 8px;
+  width: 280px;
+  height: 64px;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.68);
   transition:
     width 2s,
