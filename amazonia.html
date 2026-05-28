@@ -227,7 +227,7 @@
         minZoom: 5,
         maxZoom: 10,
         maxBounds: bounds,
-        customAttribution: '<a href="#!" onclick="showModal(); return false;" id="open-credits">© Credits</a>'
+        customAttribution: 'Map By: Paul Naylor | Data from: <a href="https://plataforma.brasil.mapbiomas.org">© Mapbiomas Brasil</a>'
       });
 
       //   map.fitBounds(bounds, {
@@ -267,6 +267,25 @@
 
       function selectPeriod(period) {
         state.period = period;
+
+        const activeLayers = []
+        // Set active layers based on period
+        if ( Number.isFinite(Number(period)) ) {
+            activeLayers.push(`${period} Amazonia`);
+        } else if (period === 'cardoso') {
+            activeLayers.push('1994 Amazonia', '1995-2002 D');
+        }
+
+        // Show active layers, hide others
+        map.style.stylesheet.layers.forEach(function(layer) {
+          if (activeLayers.includes(String(layer.id).trim())) {
+              map.setLayoutProperty(layer.id, 'visibility', 'visible');
+          } else {
+              map.setLayoutProperty(layer.id, 'visibility', 'none');
+          }
+        });
+
+
         // Update button states
         document.querySelectorAll(".grid button").forEach((button) => {
           button.disabled = button.id.startsWith(period);
@@ -280,20 +299,6 @@
           togglePanel();
         }
       }
-
-    // Modal
-    // document.getElementById('open-credits').addEventListener('click', ()=> {
-        function showModal() {
-    document.getElementById('modal').style.display = 'flex';
-    }
-    ['close','save'].forEach(id=>{
-    document.getElementById(id).addEventListener('click', ()=> {
-        document.getElementById('modal').style.display = 'none';
-    });
-    });
-    window.addEventListener('click', e=>{
-    if(e.target.id === 'modal') document.getElementById('modal').style.display = 'none';
-    });
     </script>
   </body>
 </html>
