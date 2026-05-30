@@ -61,7 +61,7 @@
         </button>
       </div>
       <div>
-        <button>
+        <button id="lula-button" onClick="selectPeriod('lula')">
           <div class="grid">
             <div>
               <img src="images/Lula.jpg" />
@@ -75,7 +75,7 @@
         </button>
       </div>
       <div>
-        <button>
+        <button id="dilma-button" onClick="selectPeriod('dilma')">
           <div class="grid">
             <div>
               <img src="images/Dilma.jpg" />
@@ -89,7 +89,7 @@
         </button>
       </div>
       <div>
-        <button>
+        <button id="temer-button" onClick="selectPeriod('temer')">
           <div class="grid">
             <div>
               <img src="images/Temer.jpg" />
@@ -103,7 +103,7 @@
         </button>
       </div>
       <div>
-        <button>
+        <button id="bolsonaro-button" onClick="selectPeriod('bolsonaro')">
           <div class="grid">
             <div>
               <img src="images/Jair.jpg" />
@@ -111,14 +111,14 @@
             <div>
               Jair Bolsonaro
               <br />
-              <strong>2019 - 2023</strong>
+              <strong>2019 - 2022</strong>
             </div>
           </div>
         </button>
       </div>
       <div>
-        <button>
-          <strong>2024</strong>
+        <button id="2023-button" onClick="selectPeriod('2023')">
+          <strong>2023</strong>
         </button>
       </div>
     </div>
@@ -126,7 +126,7 @@
     <!-- Info Section -->
     <div id="info-panel" onClick="togglePanel()">
       <span id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
-      <h1>Amazonia</h1>
+      <h1>Amazonia Deforestation</h1>
       <div id="info-block"></div>
       <div id="1994-info">
         <strong class="period">1994</strong>
@@ -168,7 +168,51 @@
         <p><strong>Alignment:</strong> Centre-Right</p>
         <p>
           <strong>Deforestation Rate:</strong><br />
-          ~2.25 million ha/year
+          2.25 Million ha/year
+        </p>
+      </div>
+      <div id="lula-info">
+        <strong class="period">2003 - 2010</strong>
+        <p><strong>President:</strong> Luiz Inácio Lula da Silva</p>
+        <p><strong>Party:</strong> Workers' Party (PT)</p>
+        <p><strong>Alignment:</strong> Centre-Left</p>
+        <p>
+          <strong>Deforestation 2003-2006:</strong>
+          2.557 M ha/year
+        </p>
+        <p>
+          <strong>Deforestation 2007-2010:</strong>
+          1.17 M ha/year
+        </p>
+      </div>
+      <div id="dilma-info">
+        <strong class="period">2011 - 2016</strong>
+        <p><strong>President:</strong> Dilma Rousseff</p>
+        <p><strong>Party:</strong> Workers' Party (PT)</p>
+        <p><strong>Alignment:</strong> Centre-Left</p>
+        <p>
+          <strong>Deforestation Rate:</strong><br />
+          1.02 Million ha/year
+        </p>
+      </div>
+      <div id="temer-info">
+        <strong class="period">2017 - 2018</strong>
+        <p><strong>President:</strong> Michel Temer</p>
+        <p><strong>Party:</strong>Brazilian Democratic Movement (MDB)</p>
+        <p><strong>Alignment:</strong> Centre-Right</p>
+        <p>
+          <strong>Deforestation Rate:</strong><br />
+          1.07 Million ha/year
+        </p>
+      </div>
+      <div id="bolsonaro-info">
+        <strong class="period">2019 - 2022</strong>
+        <p><strong>President:</strong> Jair Bolsonaro</p>
+        <p><strong>Party:</strong> Liberal Party (PL)</p>
+        <p><strong>Alignment:</strong> Far-Right</p>
+        <p>
+          <strong>Deforestation Rate:</strong><br />
+          1.789 Million ha/year
         </p>
       </div>
     </div>
@@ -201,12 +245,30 @@
       </div>
     </div>
 
-    <div id="modal" class="container" style="display:none; position:fixed; inset:0; align-items:center; justify-content:center; background:rgba(0,0,0,0.5);">
-    <div style="background:#fff; padding:1rem; max-width:32rem; border-radius:8px;">
-        <button id="close" aria-label="Close" style="float:right;">×</button>
+    <div
+      id="modal"
+      class="container"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          padding: 1rem;
+          max-width: 32rem;
+          border-radius: 8px;
+        "
+      >
+        <button id="close" aria-label="Close" style="float: right">×</button>
         <h3>Credits</h3>
         <p>Modal body content goes here.</p>
-    </div>
+      </div>
     </div>
 
     <script>
@@ -219,6 +281,8 @@
 
       mapboxgl.accessToken =
         "pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbmY2bTJzYTA3MzUycG5hcXFmMzIzemkifQ.PRYMITPnkL-dduQ9bivpvg";
+
+      // Initialize the map
       var map = new mapboxgl.Map({
         container: "map", // container id
         center: [-58.6, -4.48],
@@ -227,12 +291,15 @@
         minZoom: 5,
         maxZoom: 10,
         maxBounds: bounds,
-        customAttribution: 'Map By: Paul Naylor | Data from: <a href="https://plataforma.brasil.mapbiomas.org">© Mapbiomas Brasil</a>'
+        customAttribution:
+          'Map By: Paul Naylor | Data from: <a href="https://plataforma.brasil.mapbiomas.org">© Mapbiomas Brasil</a>',
       });
 
-      //   map.fitBounds(bounds, {
-      //     padding: 20,
-      //   });
+      // Map state
+      var state = { panelOpen: false, period: "1994", year: 1994 };
+      map.on("load", function () {
+        selectPeriod(state.period);
+      });
 
       // Add zoom and rotation controls to the map.
       map.addControl(
@@ -242,13 +309,8 @@
 
       // Disable rotation via right-click + drag
       map.dragRotate.disable();
-
       // Disable rotation via touch gesture
       map.touchZoomRotate.disableRotation();
-
-      var state = { panelOpen: false, period: "1994" };
-
-      selectPeriod(state.period);
 
       // Legend Control
       function togglePanel() {
@@ -268,23 +330,37 @@
       function selectPeriod(period) {
         state.period = period;
 
-        const activeLayers = []
+        const activeLayers = [];
         // Set active layers based on period
-        if ( Number.isFinite(Number(period)) ) {
-            activeLayers.push(`${period} Amazonia`);
-        } else if (period === 'cardoso') {
-            activeLayers.push('1994 Amazonia', '1995-2002 D');
+        if (Number.isFinite(Number(period))) {
+          state.year = period;
+          activeLayers.push(`${period} Amazonia`);
+        } else if (period === "cardoso") {
+          state.year = 1994;
+          activeLayers.push("1994 Amazonia", "1995-2002 D");
+        } else if (period === "lula") {
+          state.year = 2002;
+          activeLayers.push("2002 Amazonia", "2003-2010 D");
+        } else if (period === "dilma") {
+          state.year = 2010;
+          activeLayers.push("2010 Amazonia", "2011-2016 D");
+        } else if (period === "temer") {
+          state.year = 2016;
+          activeLayers.push("2016 Amazonia", "2017-2018 D");
+        } else if (period === "bolsonaro") {
+          state.year = 2018;
+          activeLayers.push("2018 Amazonia", "2019-2023 D");
         }
 
         // Show active layers, hide others
-        map.style.stylesheet.layers.forEach(function(layer) {
+        map.style.stylesheet.layers.forEach(function (layer) {
           if (activeLayers.includes(String(layer.id).trim())) {
-              map.setLayoutProperty(layer.id, 'visibility', 'visible');
-          } else {
-              map.setLayoutProperty(layer.id, 'visibility', 'none');
+            map.setLayoutProperty(layer.id, "visibility", "visible");
+          } else if (Number(layer.id.slice(0, 4)) > state.year) {
+            // Hide layers from future years
+            map.setLayoutProperty(layer.id, "visibility", "none");
           }
         });
-
 
         // Update button states
         document.querySelectorAll(".grid button").forEach((button) => {

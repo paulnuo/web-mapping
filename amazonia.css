@@ -91,7 +91,7 @@ table {
 
 .period {
   position: absolute;
-  top: 4px;
+  top: 8px;
 }
 
 /*  style for items with the class "descriptionPanel" */
@@ -100,7 +100,7 @@ table {
   top: 28px;
   left: 280px;
   color: white;
-  width: 280px;
+  width: 376px;
   height: 64px;
   padding: 10px;
   background: rgba(0, 0, 0, 0.68);
