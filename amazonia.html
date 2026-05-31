@@ -32,15 +32,27 @@
   <body>
     <div id="map"></div>
 
-    <div
-      class="grid"
-      style="
-        position: absolute;
-        top: 28px;
-        left: 28px;
-        grid-template-columns: 1fr;
-      "
-    >
+    <div id="intro" class="grid">
+      <div>
+        <h1>Visualizing Amazonia Deforestation By Modern Presidential Terms</h1>
+      </div>
+      <div>
+        <p>
+          The Amazonia region of Brazil includes approximately 60% of the
+          world's Amazon rainforest. Explore the changes in Amazonia's
+          deforestation rates and land cover across modern presidential terms in
+          this interactive map.
+        </p>
+        <p>
+          Select a Presidential period to see the corresponding deforestion.
+        </p>
+      </div>
+      <div>
+        <button id="intro-close" onClick="closeIntro()">&#10006;</button>
+      </div>
+    </div>
+
+    <div id="button-grid" class="grid">
       <div>
         <button id="1994-button" onClick="selectPeriod('1994')">
           <strong>1994</strong>
@@ -126,7 +138,7 @@
     <!-- Info Section -->
     <div id="info-panel" onClick="togglePanel()">
       <span id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
-      <h1>Amazonia Deforestation</h1>
+      <h2>Amazonia Deforestation</h2>
       <div id="info-block"></div>
       <div id="1994-info">
         <strong class="period">1994</strong>
@@ -170,6 +182,12 @@
           <strong>Deforestation Rate:</strong><br />
           2.25 Million ha/year
         </p>
+        <small class="right-text">
+          Presidential data from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil"
+            >Wikipedia</a
+          >
+        </small>
       </div>
       <div id="lula-info">
         <strong class="period">2003 - 2010</strong>
@@ -214,6 +232,39 @@
           <strong>Deforestation Rate:</strong><br />
           1.789 Million ha/year
         </p>
+      </div>
+      <div id="2023-info">
+        <strong class="period">2023</strong>
+        <table style="color: white; background-color: transparent">
+          <thead>
+            <tr>
+              <th>Cover</th>
+              <th>Area (ha) (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Forest</td>
+              <td>330,135,298 ha (78.3%)</td>
+            </tr>
+            <tr>
+              <td>Shrubland</td>
+              <td>15,332,693 ha (3.6%)</td>
+            </tr>
+            <tr>
+              <td>Farmland</td>
+              <td>63,558,373 ha (15.1%)</td>
+            </tr>
+            <tr>
+              <td>Non Veg</td>
+              <td>1,016,055 ha (0.2%)</td>
+            </tr>
+            <tr>
+              <td>Water</td>
+              <td>11,499,628 ha (2.7%)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -312,6 +363,12 @@
       // Disable rotation via touch gesture
       map.touchZoomRotate.disableRotation();
 
+      function closeIntro() {
+        // Reduce into div height to 0 to hide
+        const button = document.getElementById("intro");
+        button.classList.add("hidden");
+      }
+
       // Legend Control
       function togglePanel() {
         if (state.panelOpen) {
@@ -349,7 +406,7 @@
           activeLayers.push("2016 Amazonia", "2017-2018 D");
         } else if (period === "bolsonaro") {
           state.year = 2018;
-          activeLayers.push("2018 Amazonia", "2019-2023 D");
+          activeLayers.push("2018 Amazonia", "2019-2022 D");
         }
 
         // Show active layers, hide others
@@ -372,7 +429,9 @@
           document.getElementById(`${period}-info`).innerHTML;
 
         if (!Number(period) && !state.panelOpen) {
+          // Show info and hide intro when Presidents are selected
           togglePanel();
+          closeIntro();
         }
       }
     </script>
