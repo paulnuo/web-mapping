@@ -52,10 +52,10 @@
       </div>
       <div>
         <p>
-          The Amazonia region of Brazil includes approximately 60% of the
-          world's Amazon rainforest. Explore the changes in Amazonia's
-          deforestation rates and land cover across modern presidential terms in
-          this interactive map.
+          The Amazonia region of Brazil includes approximately 60% of the Amazon
+          rainforest. <br />
+          Explore changes in deforestation rates and land cover in Amazonia'
+          across modern presidential terms with this interactive map.
         </p>
         <p>
           Select a Presidential period to see the corresponding deforestion.
@@ -72,17 +72,32 @@
 
     <div id="button-grid" class="grid">
       <div>
-        <button id="back-button" class="icon-button">←</button>
-        <button id="next-button" class="icon-button">→</button>
-        <button id="play-button" class="icon-button">▶</button>
+        <button id="back-button" aria-label="Back" class="icon-button">
+          ←
+        </button>
+        <button id="next-button" aria-label="Next" class="icon-button">
+          →
+        </button>
+        <button id="play-button" aria-label="Play" class="icon-button">
+          ▶
+        </button>
       </div>
       <div>
-        <button id="1994-button" onClick="selectPeriod('1994')" disabled="true">
+        <button
+          id="1994-button"
+          onClick="selectPeriod('1994')"
+          aria-label="1994"
+          disabled="true"
+        >
           <strong>1994</strong>
         </button>
       </div>
       <div>
-        <button id="cardoso-button" onClick="selectPeriod('cardoso')">
+        <button
+          id="cardoso-button"
+          onClick="selectPeriod('cardoso')"
+          aria-label="Fernando Cardoso, 1995 to 2002"
+        >
           <div class="grid">
             <div>
               <img src="images/Cardoso.jpg" />
@@ -96,7 +111,11 @@
         </button>
       </div>
       <div>
-        <button id="lula-button" onClick="selectPeriod('lula')">
+        <button
+          id="lula-button"
+          onClick="selectPeriod('lula')"
+          aria-label="Lula da Silva, 2003 to 2010"
+        >
           <div class="grid">
             <div>
               <img src="images/Lula.jpg" />
@@ -110,7 +129,11 @@
         </button>
       </div>
       <div>
-        <button id="dilma-button" onClick="selectPeriod('dilma')">
+        <button
+          id="dilma-button"
+          onClick="selectPeriod('dilma')"
+          aria-label="Dilma Rousseff, 2011 to 2016"
+        >
           <div class="grid">
             <div>
               <img src="images/Dilma.jpg" />
@@ -124,7 +147,11 @@
         </button>
       </div>
       <div>
-        <button id="temer-button" onClick="selectPeriod('temer')">
+        <button
+          id="temer-button"
+          onClick="selectPeriod('temer')"
+          aria-label="Michel Temer, 2017 to 2018"
+        >
           <div class="grid">
             <div>
               <img src="images/Temer.jpg" />
@@ -138,7 +165,11 @@
         </button>
       </div>
       <div>
-        <button id="bolsonaro-button" onClick="selectPeriod('bolsonaro')">
+        <button
+          id="bolsonaro-button"
+          onClick="selectPeriod('bolsonaro')"
+          aria-label="Jair Bolsonaro, 2019 to 2022"
+        >
           <div class="grid">
             <div>
               <img src="images/Jair.jpg" />
@@ -393,7 +424,7 @@
         playing: false,
       };
       map.on("load", function () {
-        selectPeriod(state.period);
+        // selectPeriod(state.period);
       });
 
       // Add zoom and rotation controls to the map.
@@ -418,6 +449,8 @@
         const intoDiv = document.getElementById("intro");
         intoDiv.classList.add("hidden");
         infoPanel.removeAttribute("hidden");
+        nextButton.classList.add("button-highlight");
+        playButton.classList.add("button-highlight");
       }
 
       // Info Panel Toggle
@@ -447,6 +480,8 @@
         if (currentIndex < periods.length - 1) {
           selectPeriod(periods[currentIndex + 1]);
         }
+        nextButton.classList.remove("button-highlight");
+        playButton.classList.remove("button-highlight");
       });
 
       let playInterval;
@@ -473,9 +508,12 @@
         } else if (state.playing) {
           state.playing = false;
           playButton.textContent = "▶"; // Change stop icon to play icon
+          playButton.ariaLabel = "Play";
+          clearInterval(playInterval);
         } else {
           state.playing = true;
           playButton.textContent = "⏹"; // Change play icon to stop icon
+          playButton.ariaLabel = "Stop";
           // Close info panel if open
           if (state.infoOpen) {
             toggleInfo();
@@ -484,6 +522,8 @@
           playInterval = setInterval(playNext, 2800);
           // Select next period immediately
           playNext();
+          nextButton.classList.remove("button-highlight");
+          playButton.classList.remove("button-highlight");
         }
       });
 
@@ -530,10 +570,12 @@
         // If year = 2023, change play button icon to restart
         if (period === periods[periods.length - 1]) {
           playButton.textContent = "⟳";
+          playButton.ariaLabel = "Reset";
           nextButton.disabled = true;
         } else {
           if (!state.playing) {
             playButton.textContent = "▶";
+            playButton.ariaLabel = "Play";
           }
           nextButton.disabled = false;
         }
