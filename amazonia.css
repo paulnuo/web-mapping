@@ -311,13 +311,14 @@ table.diff td {
   #info-panel {
     height: 54px;
     width: 328px;
-    right: 38px;
+    top: 8px;
+    right: 8px;
     left: auto;
-    padding: 4px;
+    padding: 3px;
   }
 
   #info-panel.open {
-    height: 192px;
+    height: 188px;
   }
 
   #intro-close {
