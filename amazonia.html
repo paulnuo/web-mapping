@@ -52,13 +52,19 @@
       </div>
       <div>
         <p>
-          The Amazonia region of Brazil includes approximately 60% of the Amazon
-          rainforest. <br />
-          Explore changes in deforestation rates and land cover in Amazonia'
-          across modern presidential terms with this interactive map.
+          The Amazonia region of northwest Brazil includes approximately 60% of
+          the Amazon rainforest. <br />
+          Scientists warn that the Amazon is risk of a systemic collapse from
+          the compounding stresses of deforestation and climate change
+          <small>
+            (<a href="https://www.sciencefocus.com/news/amazon-drying-out"
+              >BBC</a
+            >).
+          </small>
         </p>
         <p>
-          Select a Presidential period to see the corresponding deforestion.
+          Explore changes in deforestation rates and land cover in Amazonia'
+          across modern presidential terms with this interactive map.
         </p>
       </div>
       <div>
@@ -72,7 +78,12 @@
 
     <div id="button-grid" class="grid">
       <div>
-        <button id="back-button" aria-label="Back" class="icon-button">
+        <button
+          id="back-button"
+          aria-label="Back"
+          class="icon-button"
+          disabled="true"
+        >
           ←
         </button>
         <button id="next-button" aria-label="Next" class="icon-button">
@@ -398,6 +409,10 @@
         [-43.95, 5], // Northeast coordinates
       ];
 
+      // Set zoom and min zoom by screen size
+      const zoom = window.innerWidth > 800 ? 5.28 : 4.8;
+      const minZoom = window.innerWidth > 800 ? 4.8 : 4;
+
       const myAttribution = `Map by <a href="https://pauln.dev" class="attribution-link">Paul Naylor</a> | `;
       const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" class="attribution-link">MapBiomas Brasil</a>`;
 
@@ -408,9 +423,9 @@
       const map = new mapboxgl.Map({
         container: "map", // container id
         center: [-58.6, -4.48],
-        zoom: 5.28, // starting zoom
+        zoom: zoom, // starting zoom
         style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u",
-        minZoom: 4.8,
+        minZoom: minZoom,
         maxZoom: 10,
         maxBounds: bounds,
         customAttribution: myAttribution + dataAttribution,
@@ -424,7 +439,7 @@
         playing: false,
       };
       map.on("load", function () {
-        // selectPeriod(state.period);
+        selectPeriod(state.period);
       });
 
       // Add zoom and rotation controls to the map.
@@ -456,11 +471,11 @@
       // Info Panel Toggle
       function toggleInfo() {
         if (state.infoOpen) {
-          infoPanel.style.height = "62px";
+          infoPanel.classList.remove("open");
           infoGlyph.className = "chevron glyphicon glyphicon-chevron-down";
           state.infoOpen = false;
         } else {
-          infoPanel.style.height = "214px";
+          infoPanel.classList.add("open");
           infoGlyph.className = "chevron glyphicon glyphicon-chevron-up";
           state.infoOpen = true;
         }

@@ -1,16 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-}
-
-#map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-body {
   color: black;
   font-size: 12pt;
   font-family: "Bellefair", sans-serif, system-ui;
@@ -54,6 +44,10 @@ h2 {
 
 h1 {
   margin-top: 0px;
+}
+
+small {
+  font-size: 0.8em;
 }
 
 table {
@@ -120,7 +114,6 @@ table.diff td {
   margin-left: 16px;
 }
 
-/*  style for items with the class "descriptionPanel" */
 #info-panel {
   position: absolute;
   top: 28px;
@@ -142,6 +135,16 @@ table.diff td {
 #info-panel p {
   color: black;
   margin: 0 10px;
+}
+
+#info-panel.open {
+  height: 214px;
+}
+
+#info-panel #glyph {
+  position: absolute;
+  top: 18px;
+  right: 18px;
 }
 
 #intro {
@@ -178,7 +181,7 @@ table.diff td {
   bottom: 48px;
   right: 48px;
   z-index: 2;
-  width: 118px;
+  width: 124px;
   height: 168px;
   background: rgba(220, 220, 220, 0.8);
   transition: /* this is the time it takes for the container to transition */
@@ -193,14 +196,8 @@ table.diff td {
   font-size: 18px;
 }
 
-#glyph {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-}
-
 /* Legend colors */
-#forest {
+#legend-panel #forest {
   color: #229352;
 }
 #shrub {
@@ -219,8 +216,15 @@ table.diff td {
   color: #2532e3;
 }
 
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 /* Hide Wiki attribution */
-@container (max-height: 180px) {
+@container (max-height: 168px) {
   .right-text {
     display: none;
   }
@@ -251,8 +255,12 @@ table.diff td {
 
 /* For small screens */
 @media (max-width: 768px) {
+  body {
+    font-size: 11pt;
+  }
+
   h1 h2 {
-    font-size: 1.3em;
+    font-size: 1.24em;
   }
 
   /* Hide images */
@@ -262,16 +270,22 @@ table.diff td {
 
   /* Condense buttons */
   button {
-    width: 140px;
+    font-size: 1em;
+    width: 124px;
   }
 
   button .grid > div:nth-child(2) {
     text-align: center;
   }
 
+  .icon-button {
+    width: 36px;
+  }
+
   /* Reposition buttons */
   #button-grid {
     top: auto;
+    bottom: 28px;
     transform: translate(18px);
     grid-row-gap: 0;
   }
@@ -284,11 +298,25 @@ table.diff td {
     margin-top: 18px;
   }
 
+  #button-grid > div:first-child {
+    margin-bottom: 0;
+  }
+
+  #button-grid .icon-button {
+    margin-left: 0;
+    margin-right: 8px;
+  }
+
   /* Reposition info panel */
   #info-panel {
-    height: 60px;
+    height: 54px;
     right: 28px;
     left: auto;
+    padding: 4px;
+  }
+
+  #info-panel.open {
+    height: 192px;
   }
 
   #intro-close {
@@ -297,9 +325,9 @@ table.diff td {
 
   /* Condense legend */
   #legend-panel {
-    padding: 4px;
-    width: 88px;
-    height: 126px;
+    padding: 2px;
+    width: 84px;
+    height: 114px;
   }
 
   #legend-panel .legend-item {
@@ -311,14 +339,18 @@ table.diff td {
 /* Mobile */
 @media (max-width: 600px) {
   h1 h2 {
-    font-size: 1.2em;
+    font-size: 1.18em;
   }
 
   #button-grid {
-    top: auto;
     transform: translate(8px);
+  }
 
   #intro-close {
     margin-right: 4px;
+  }
+
+  #legend-panel {
+    padding: 2px;
   }
 }
