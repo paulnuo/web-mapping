@@ -11,8 +11,9 @@ body {
 }
 
 body {
-  font-size: 12pt;
   color: black;
+  font-size: 12pt;
+  font-family: "Bellefair", sans-serif, system-ui;
 }
 
 button {
@@ -48,6 +49,7 @@ h1,
 h2 {
   font-size: 1.4em;
   margin-left: 10px;
+  /* font-family: "IM Fell English", sans-serif, system-ui; */
 }
 
 h1 {
@@ -65,7 +67,15 @@ td {
   padding-left: 30px;
 }
 
-/* style for items with the class "chevron" */
+table.diff th,
+table.diff td {
+  padding-left: 10px;
+}
+
+.attribution-link {
+  font-weight: bold;
+}
+
 .chevron {
   position: relative;
   margin-left: 45%;
@@ -78,6 +88,10 @@ td {
 
 .grid > div:nth-child(2) {
   text-align: left;
+}
+
+.icon-button {
+  width: 40px;
 }
 
 .period {
@@ -93,9 +107,17 @@ td {
 
 #button-grid {
   position: absolute;
-  top: 28px;
-  left: 28px;
+  top: 50%;
+  transform: translate(28px, -50%);
   grid-template-columns: 1fr;
+}
+
+#button-grid > div:first-child {
+  margin-bottom: 20px;
+}
+
+#button-grid .icon-button {
+  margin-left: 16px;
 }
 
 /*  style for items with the class "descriptionPanel" */
@@ -104,7 +126,7 @@ td {
   top: 28px;
   left: 280px;
   width: 376px;
-  height: 64px;
+  height: 62px;
   padding: 10px;
   background: rgba(240, 240, 240, 0.68);
   transition:
@@ -114,6 +136,7 @@ td {
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
+  container-type: size;
 }
 
 #info-panel p {
@@ -123,16 +146,20 @@ td {
 
 #intro {
   position: absolute;
-  top: 0px;
+  top: 8px;
+  left: 2%;
+  width: 96%;
+  padding-top: 12px;
   z-index: 10;
-  grid-template-columns: 2fr 4fr 1fr;
+  grid-template-columns: 3fr 6fr 1fr;
   background: rgba(240, 240, 240, 1);
+  box-shadow: inset 0px 0px 20px 0px green;
+  border-radius: 8px;
+  opacity: 1;
   transition:
     height 1s ease,
     top 1s ease,
     opacity 1s ease;
-  border-radius: 0px 0px 8px 8px;
-  opacity: 1;
 }
 
 #intro.hidden {
@@ -142,17 +169,16 @@ td {
 }
 
 #intro-close {
-  width: 40px;
   float: right;
   margin-right: 28px;
 }
 
-#legened-panel {
+#legend-panel {
   position: absolute;
   bottom: 48px;
   right: 48px;
   z-index: 2;
-  width: 140px;
+  width: 118px;
   height: 168px;
   background: rgba(220, 220, 220, 0.8);
   transition: /* this is the time it takes for the container to transition */
@@ -162,8 +188,8 @@ td {
   border-radius: 7px;
 }
 
-.legend-item {
-  padding-left: 10px;
+#legend-panel .legend-item {
+  padding-left: 4px;
   font-size: 18px;
 }
 
@@ -221,6 +247,16 @@ td {
   #button-grid {
     bottom: 28px;
     top: auto;
+    transform: translate(28px);
+    grid-row-gap: 0;
+  }
+
+  #button-grid button:has(div) {
+    padding-top: 0px;
+  }
+
+  #button-grid button:last-of-type {
+    margin-top: 18px;
   }
 
   #info-panel {
@@ -231,12 +267,18 @@ td {
 
   #legend-panel {
     padding: 4px;
-    width: 105px;
-    height: 144px;
+    width: 88px;
+    height: 126px;
   }
 
   #legend-panel .legend-item {
-    padding-left: 10px;
-    font-size: 1em;
+    padding-left: 4px;
+    font-size: 0.88em;
+  }
+}
+
+@container (max-height: 180px) {
+  .right-text {
+    display: none;
   }
 }

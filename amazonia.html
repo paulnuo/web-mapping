@@ -7,17 +7,20 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
+
     <!-- Mapbox Files -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
       rel="stylesheet"
     />
+
     <!-- Pico CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.green.min.css"
     />
+
     <!-- Bootstrap CSS -->
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -25,12 +28,23 @@
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous"
     />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bellefair&family=IM+Fell+English:ital@0;1&family=Merienda:wght@300..900&family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="amazonia.css" />
   </head>
 
   <body>
     <div id="map"></div>
+
+    <!-- Intro -->
 
     <div id="intro" class="grid">
       <div>
@@ -48,13 +62,22 @@
         </p>
       </div>
       <div>
-        <button id="intro-close" onClick="closeIntro()">&#10006;</button>
+        <button id="intro-close" class="icon-button" onClick="closeIntro()">
+          &#10006;
+        </button>
       </div>
     </div>
 
+    <!-- Nav Buttons -->
+
     <div id="button-grid" class="grid">
       <div>
-        <button id="1994-button" onClick="selectPeriod('1994')">
+        <button id="back-button" class="icon-button">←</button>
+        <button id="next-button" class="icon-button">→</button>
+        <button id="play-button" class="icon-button">▶</button>
+      </div>
+      <div>
+        <button id="1994-button" onClick="selectPeriod('1994')" disabled="true">
           <strong>1994</strong>
         </button>
       </div>
@@ -135,8 +158,9 @@
       </div>
     </div>
 
-    <!-- Info Section -->
-    <div id="info-panel" onClick="togglePanel()">
+    <!-- Info Panel -->
+
+    <div id="info-panel" onClick="toggleInfo()" hidden="true">
       <span id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
       <h2>Amazonia Deforestation</h2>
       <div id="info-block"></div>
@@ -183,10 +207,10 @@
           2.25 Million ha/year
         </p>
         <small class="right-text">
-          Presidential data from
-          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil"
-            >Wikipedia</a
-          >
+          Presidential info from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil">
+            Wikipedia
+          </a>
         </small>
       </div>
       <div id="lula-info">
@@ -202,6 +226,12 @@
           <strong>Deforestation 2007-2010:</strong>
           1.17 M ha/year
         </p>
+        <small class="right-text">
+          Presidential info from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil">
+            Wikipedia
+          </a>
+        </small>
       </div>
       <div id="dilma-info">
         <strong class="period">2011 - 2016</strong>
@@ -212,6 +242,12 @@
           <strong>Deforestation Rate:</strong><br />
           1.02 Million ha/year
         </p>
+        <small class="right-text">
+          Presidential info from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil">
+            Wikipedia
+          </a>
+        </small>
       </div>
       <div id="temer-info">
         <strong class="period">2017 - 2018</strong>
@@ -222,6 +258,12 @@
           <strong>Deforestation Rate:</strong><br />
           1.07 Million ha/year
         </p>
+        <small class="right-text">
+          Presidential info from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil">
+            Wikipedia
+          </a>
+        </small>
       </div>
       <div id="bolsonaro-info">
         <strong class="period">2019 - 2022</strong>
@@ -232,44 +274,57 @@
           <strong>Deforestation Rate:</strong><br />
           1.789 Million ha/year
         </p>
+        <small class="right-text">
+          Presidential info from
+          <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_Brazil">
+            Wikipedia
+          </a>
+        </small>
       </div>
       <div id="2023-info">
         <strong class="period">2023</strong>
-        <table style="color: white; background-color: transparent">
+        <table class="diff">
           <thead>
             <tr>
               <th>Cover</th>
               <th>Area (ha) (%)</th>
+              <th>Change <small>1994-2023</small></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Forest</td>
               <td>330,135,298 ha (78.3%)</td>
+              <td>-9.7%</td>
             </tr>
             <tr>
               <td>Shrubland</td>
               <td>15,332,693 ha (3.6%)</td>
+              <td>0%</td>
             </tr>
             <tr>
               <td>Farmland</td>
               <td>63,558,373 ha (15.1%)</td>
+              <td>+9.8%</td>
             </tr>
             <tr>
               <td>Non Veg</td>
               <td>1,016,055 ha (0.2%)</td>
+              <td>+0.1%</td>
             </tr>
             <tr>
               <td>Water</td>
               <td>11,499,628 ha (2.7%)</td>
+              <td>-0.2%</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Legend Section -->
-    <div id="legened-panel">
+    <!-- Legend -->
+
+    <div id="legend-panel">
       <div class="legend-item">
         <span id="forest">&#11044;</span>
         <span class="item-label">Forest</span>
@@ -296,58 +351,47 @@
       </div>
     </div>
 
-    <div
-      id="modal"
-      class="container"
-      style="
-        display: none;
-        position: fixed;
-        inset: 0;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.5);
-      "
-    >
-      <div
-        style="
-          background: #fff;
-          padding: 1rem;
-          max-width: 32rem;
-          border-radius: 8px;
-        "
-      >
-        <button id="close" aria-label="Close" style="float: right">×</button>
-        <h3>Credits</h3>
-        <p>Modal body content goes here.</p>
-      </div>
-    </div>
-
     <script>
-      document.getElementById("1994-button")?.focus();
+      const periods = [
+        "1994",
+        "cardoso",
+        "lula",
+        "dilma",
+        "temer",
+        "bolsonaro",
+        "2023",
+      ];
 
-      var bounds = [
+      const bounds = [
         [-73.465, -16.4], // Southwest coordinates
         [-43.95, 5], // Northeast coordinates
       ];
+
+      const myAttribution = `Map by <a href="https://pauln.dev" class="attribution-link">Paul Naylor</a> | `;
+      const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" class="attribution-link">MapBiomas Brasil</a>`;
 
       mapboxgl.accessToken =
         "pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbmY2bTJzYTA3MzUycG5hcXFmMzIzemkifQ.PRYMITPnkL-dduQ9bivpvg";
 
       // Initialize the map
-      var map = new mapboxgl.Map({
+      const map = new mapboxgl.Map({
         container: "map", // container id
         center: [-58.6, -4.48],
-        zoom: 5.68, // starting zoom
-        style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u", // stylesheet location
-        minZoom: 5,
+        zoom: 5.28, // starting zoom
+        style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u",
+        minZoom: 4.8,
         maxZoom: 10,
         maxBounds: bounds,
-        customAttribution:
-          'Map By: Paul Naylor | Data from: <a href="https://plataforma.brasil.mapbiomas.org">© Mapbiomas Brasil</a>',
+        customAttribution: myAttribution + dataAttribution,
       });
 
       // Map state
-      var state = { panelOpen: false, period: "1994", year: 1994 };
+      const state = {
+        infoOpen: false,
+        period: periods[0],
+        year: Number(periods[0]),
+        playing: false,
+      };
       map.on("load", function () {
         selectPeriod(state.period);
       });
@@ -363,26 +407,85 @@
       // Disable rotation via touch gesture
       map.touchZoomRotate.disableRotation();
 
+      const infoPanel = document.getElementById("info-panel");
+      const infoGlyph = document.getElementById("glyph");
+      const playButton = document.getElementById("play-button");
+      const backButton = document.getElementById("back-button");
+      const nextButton = document.getElementById("next-button");
+
       function closeIntro() {
         // Reduce into div height to 0 to hide
-        const button = document.getElementById("intro");
-        button.classList.add("hidden");
+        const intoDiv = document.getElementById("intro");
+        intoDiv.classList.add("hidden");
+        infoPanel.removeAttribute("hidden");
       }
 
-      // Legend Control
-      function togglePanel() {
-        if (state.panelOpen) {
-          document.getElementById("info-panel").style.height = "64px";
-          document.getElementById("glyph").className =
-            "chevron glyphicon glyphicon-chevron-down";
-          state.panelOpen = false;
+      // Info Panel Toggle
+      function toggleInfo() {
+        if (state.infoOpen) {
+          infoPanel.style.height = "62px";
+          infoGlyph.className = "chevron glyphicon glyphicon-chevron-down";
+          state.infoOpen = false;
         } else {
-          document.getElementById("info-panel").style.height = "224px";
-          document.getElementById("glyph").className =
-            "chevron glyphicon glyphicon-chevron-up";
-          state.panelOpen = true;
+          infoPanel.style.height = "214px";
+          infoGlyph.className = "chevron glyphicon glyphicon-chevron-up";
+          state.infoOpen = true;
         }
       }
+
+      // Nav to previous period when back button pressed
+      backButton.addEventListener("click", () => {
+        const currentIndex = periods.indexOf(state.period);
+        if (currentIndex > 0) {
+          selectPeriod(periods[currentIndex - 1]);
+        }
+      });
+
+      // Nav to next period when next button pressed
+      nextButton.addEventListener("click", () => {
+        const currentIndex = periods.indexOf(state.period);
+        if (currentIndex < periods.length - 1) {
+          selectPeriod(periods[currentIndex + 1]);
+        }
+      });
+
+      let playInterval;
+      function playNext() {
+        if (state.playing) {
+          const currentIndex = periods.indexOf(state.period);
+          if (currentIndex < periods.length - 1) {
+            selectPeriod(periods[currentIndex + 1]);
+          } else {
+            clearInterval(playInterval);
+            state.playing = false;
+          }
+        } else {
+          clearInterval(playInterval);
+        }
+      }
+
+      // Play through periods when play button pressed
+      playButton.addEventListener("click", () => {
+        console.log("Play button pressed. Current state:", state);
+        if (state.period === periods[periods.length - 1]) {
+          // If at end, go back to first period
+          selectPeriod(periods[0]);
+        } else if (state.playing) {
+          state.playing = false;
+          playButton.textContent = "▶"; // Change stop icon to play icon
+        } else {
+          state.playing = true;
+          playButton.textContent = "⏹"; // Change play icon to stop icon
+          // Close info panel if open
+          if (state.infoOpen) {
+            toggleInfo();
+          }
+          // Select next period every 2 seconds until end reached or play stopped
+          playInterval = setInterval(playNext, 2800);
+          // Select next period immediately
+          playNext();
+        }
+      });
 
       function selectPeriod(period) {
         state.period = period;
@@ -424,13 +527,29 @@
           button.disabled = button.id.startsWith(period);
         });
 
+        // If year = 2023, change play button icon to restart
+        if (period === periods[periods.length - 1]) {
+          playButton.textContent = "⟳";
+          nextButton.disabled = true;
+        } else {
+          if (!state.playing) {
+            playButton.textContent = "▶";
+          }
+          nextButton.disabled = false;
+        }
+        if (period === periods[0]) {
+          backButton.disabled = true;
+        } else {
+          backButton.disabled = false;
+        }
+
         // Update info panel content based on selected period
         document.getElementById("info-block").innerHTML =
           document.getElementById(`${period}-info`).innerHTML;
 
-        if (!Number(period) && !state.panelOpen) {
-          // Show info and hide intro when Presidents are selected
-          togglePanel();
+        // Show info and hide intro when Presidents are selected
+        if (!Number(period) && !state.infoOpen && !state.playing) {
+          toggleInfo();
           closeIntro();
         }
       }
