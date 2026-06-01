@@ -149,12 +149,13 @@ table.diff td {
 
 #intro {
   position: absolute;
-  top: 8px;
-  left: 2%;
-  width: 96%;
+  top: 2%;
+  right: 2%;
+  width: 60%;
   padding-top: 12px;
+  padding-left: 12px;
   z-index: 10;
-  grid-template-columns: 3fr 6fr 1fr;
+  grid-template-columns: 20fr 1fr;
   background: rgba(240, 240, 240, 1);
   box-shadow: inset 0px 0px 20px 0px green;
   border-radius: 8px;
@@ -172,8 +173,9 @@ table.diff td {
 }
 
 #intro-close {
-  float: right;
-  margin-right: 28px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 #legend-panel {
@@ -253,6 +255,12 @@ table.diff td {
     box-shadow 160ms ease;
 }
 
+@media (max-width: 1600px) {
+  #intro {
+    width: 68%;
+  }
+}
+
 /* For small screens */
 @media (max-width: 768px) {
   body {
@@ -312,7 +320,7 @@ table.diff td {
     height: 54px;
     width: 328px;
     top: 8px;
-    right: 8px;
+    right: auto;
     left: auto;
     padding: 3px;
   }
@@ -321,8 +329,15 @@ table.diff td {
     height: 188px;
   }
 
+  #intro {
+    top: 1%;
+    right: 1%;
+    width: 98%;
+  }
+
   #intro-close {
-    margin-right: 8px;
+    top: 4px;
+    right: 4px;
   }
 
   /* Condense legend */
@@ -346,10 +361,6 @@ table.diff td {
 
   #button-grid {
     transform: translate(8px);
-  }
-
-  #intro-close {
-    margin-right: 4px;
   }
 
   #legend-panel {
