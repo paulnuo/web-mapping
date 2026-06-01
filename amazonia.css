@@ -203,30 +203,55 @@ table.diff td {
 #forest {
   color: #229352;
 }
-
 #shrub {
   color: #74d64b;
 }
-
 #deforest {
   color: red;
 }
-
 #farm {
   color: #fffdcd;
 }
-
 #nonveg {
   color: black;
 }
-
 #water {
   color: #2532e3;
 }
 
+/* Hide Wiki attribution */
+@container (max-height: 180px) {
+  .right-text {
+    display: none;
+  }
+}
+
+/* Button intro animation */
+@keyframes highlightPulse {
+  0% {
+    box-shadow: inset 0px 0px 10px 0px blue;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: inset 0px 0px 8px 0px cyan;
+    transform: scale(1.18);
+  }
+  100% {
+    box-shadow: inset 0px 0px 10px 0px blue;
+    transform: scale(1);
+  }
+}
+
+.button-highlight {
+  animation: highlightPulse 2s ease-in-out 8;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
 /* For small screens */
 @media (max-width: 768px) {
-  h1 {
+  h1 h2 {
     font-size: 1.3em;
   }
 
@@ -246,9 +271,8 @@ table.diff td {
 
   /* Reposition buttons */
   #button-grid {
-    bottom: 28px;
     top: auto;
-    transform: translate(28px);
+    transform: translate(18px);
     grid-row-gap: 0;
   }
 
@@ -267,6 +291,10 @@ table.diff td {
     left: auto;
   }
 
+  #intro-close {
+    margin-right: 8px;
+  }
+
   /* Condense legend */
   #legend-panel {
     padding: 4px;
@@ -280,32 +308,17 @@ table.diff td {
   }
 }
 
-@container (max-height: 180px) {
-  .right-text {
-    display: none;
+/* Mobile */
+@media (max-width: 600px) {
+  h1 h2 {
+    font-size: 1.2em;
   }
-}
 
-/* Button Animation */
-@keyframes highlightPulse {
-  0% {
-    box-shadow: inset 0px 0px 10px 0px blue;
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: inset 0px 0px 8px 0px cyan;
-    transform: scale(1.18);
-  }
-  100% {
-    box-shadow: inset 0px 0px 10px 0px blue;
-    transform: scale(1);
-  }
-}
+  #button-grid {
+    top: auto;
+    transform: translate(8px);
 
-/* apply to the button */
-.button-highlight {
-  animation: highlightPulse 2s ease-in-out 8;
-  transition:
-    transform 160ms ease,
-    box-shadow 160ms ease;
+  #intro-close {
+    margin-right: 4px;
+  }
 }
