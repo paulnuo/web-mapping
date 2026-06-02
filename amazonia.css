@@ -183,8 +183,8 @@ table.diff td {
   bottom: 48px;
   right: 48px;
   z-index: 2;
-  width: 110px;
-  height: 160px;
+  width: 112px;
+  height: 161px;
   background: rgba(220, 220, 220, 0.8);
   transition: /* this is the time it takes for the container to transition */
     width 2s,
