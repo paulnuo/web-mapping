@@ -396,6 +396,12 @@ table.diff td {
     right: 1%;
     width: 98%;
   }
+
+  #intro-close {
+    width: 30px;
+    height: 30px;
+    font-size: 0.68em;
+  }
 }
 
 /* Tall screen */
