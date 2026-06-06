@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   color: black;
-  font-size: 12pt;
+  font-size: 12.18pt;
   font-family: "Bellefair", sans-serif, system-ui;
 }
 
@@ -64,6 +64,11 @@ td {
 table.diff th,
 table.diff td {
   padding-left: 10px;
+}
+
+.absolute {
+  position: absolute;
+  color: lightyellow;
 }
 
 .attribution-link {
