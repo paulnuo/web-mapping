@@ -405,14 +405,17 @@
     <script>
       // Map Setup
       // Layers:
-      // SW [-73.99, -16.67]
-      // NE [-43.39, 5.27]
+      // SW [-74, -16.67]
+      // NE [-43.4, 5.27]
+
+      const westBound =
+        window.innerWidth < 1200 && window.innerWidth > 768 ? -76 : -74;
 
       const bounds = [
         // SW [W, S]
-        [-78, -16.6],
+        [westBound, -12],
         // NE [E, N]
-        [-43.4, 5.3],
+        [-45, 0],
       ];
 
       // Max bounds - must be wide enough to fit bounds within screen initially
