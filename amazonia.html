@@ -404,15 +404,28 @@
 
     <script>
       // Map Setup
+      // Layers:
+      // SW [-73.99, -16.67]
+      // NE [-43.39, 5.27]
+
       const bounds = [
-        [-73.465, -16.4], // Southwest coordinates
-        [-43.95, 5], // Northeast coordinates
+        // SW [W, S]
+        [-78, -16.6],
+        // NE [E, N]
+        [-43.4, 5.3],
+      ];
+
+      // Max bounds - must be wide enough to fit bounds within screen initially
+      const maxBounds = [
+        // SW [W, S]
+        [-83, -21.6],
+        // NE [E, N]
+        [-38.4, 10.3],
       ];
 
       // Set zoom and min zoom by screen size
-      const zoom = window.innerWidth > 800 ? 5.28 : 4.8;
-      let minZoom = window.innerWidth > 800 ? 4.8 : 3.8;
-      minZoom = window.innerWidth < 600 ? 3 : minZoom;
+      let minZoom = window.innerWidth < 600 ? 2.8 : 4;
+      minZoom = window.innerWidth > 1280 ? 4.5 : minZoom;
 
       const myAttribution = `Map by <a href="https://pauln.dev" class="attribution-link">Paul Naylor</a> | `;
       const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" class="attribution-link">MapBiomas Brasil</a>`;
@@ -423,12 +436,11 @@
       // Initialize the map
       const map = new mapboxgl.Map({
         container: "map", // container id
-        center: [-58.6, -4.48],
-        zoom: zoom, // starting zoom
         style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u",
         minZoom: minZoom,
         maxZoom: 10,
-        maxBounds: bounds,
+        bounds: bounds,
+        maxBounds: maxBounds,
         customAttribution: myAttribution + dataAttribution,
       });
 
