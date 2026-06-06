@@ -1,25 +1,41 @@
 <!doctype html>
 <html>
-
   <head>
     <meta charset="utf-8" />
     <title>Amazonia Deforestation</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
 
     <!-- Mapbox Files -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css" rel="stylesheet" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
     <!-- Pico CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.green.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.green.min.css"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bellefair&family=IM+Fell+English:ital@0;1&family=Merienda:wght@300..900&family=Trade+Winds&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bellefair&family=IM+Fell+English:ital@0;1&family=Merienda:wght@300..900&family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="amazonia.css" />
@@ -42,11 +58,20 @@
           rainforest on Earth, is now at risk of systemic collapse from the
           compounding stresses of deforestation, drought, and climate change
           <small>
-            (<a href="https://www.sciencefocus.com/news/amazon-drying-out" title="The Amazon is drying at an alarming pace – and nearing a devastating tipping point" aria-label="The Amazon is drying at an alarming pace – and nearing a devastating tipping point">BBC</a>).
+            (<a
+              href="https://www.sciencefocus.com/news/amazon-drying-out"
+              title="The Amazon is drying at an alarming pace – and nearing a devastating tipping point"
+              aria-label="The Amazon is drying at an alarming pace – and nearing a devastating tipping point"
+              >BBC</a
+            >).
           </small>
+          <!-- Incomplete:
           <span class="tooltip" role="tooltip" display="none">
-            <img src="https://c02.purpledshub.com/uploads/sites/41/2025/09/RelativecontributionsofclimatechangeanddeforestationtotheAmazonianclimate.jpg?webp=1&w=420" alt="Contributers of drying in Amazon" />
-          </span>
+            <img
+              src="https://c02.purpledshub.com/uploads/sites/41/2025/09/RelativecontributionsofclimatechangeanddeforestationtotheAmazonianclimate.jpg?webp=1&w=420"
+              alt="Contributers of drying in Amazon"
+            />
+          </span> -->
         </p>
         <p>
           Explore changes in deforestation rates and land cover in Amazonia
@@ -54,7 +79,11 @@
         </p>
       </div>
       <div>
-        <button id="intro-close" class="icon-button button-highlight" onClick="closeIntro()">
+        <button
+          id="intro-close"
+          class="icon-button button-highlight"
+          onClick="closeIntro()"
+        >
           &#10006;
         </button>
       </div>
@@ -75,12 +104,19 @@
         </button>
       </div>
       <div>
-        <button id="1994-button" onClick="selectPeriod('1994')" aria-label="1994">
+        <button
+          id="1994-button"
+          onClick="selectPeriod('1994')"
+          aria-label="1994"
+        >
           <strong>1994</strong>
         </button>
       </div>
       <div>
-        <button id="cardoso-button" onClick="selectPeriod('cardoso')" aria-label="Fernando Cardoso, 1995 to 2002">
+        <button
+          id="cardoso-button"
+          onClick="selectPeriod('cardoso')"
+          aria-label="Fernando Cardoso, 1995 to 2002"
           <div class="grid">
             <div>
               <span class="absolute">🡺</span><img src="images/Cardoso.jpg" />
@@ -94,7 +130,11 @@
         </button>
       </div>
       <div>
-        <button id="lula-button" onClick="selectPeriod('lula')" aria-label="Lula da Silva, 2003 to 2010">
+        <button
+          id="lula-button"
+          onClick="selectPeriod('lula')"
+          aria-label="Lula da Silva, 2003 to 2010"
+        >
           <div class="grid">
             <div>
               <span class="absolute">🡸</span><img src="images/Lula.jpg" />
@@ -108,7 +148,11 @@
         </button>
       </div>
       <div>
-        <button id="dilma-button" onClick="selectPeriod('dilma')" aria-label="Dilma Rousseff, 2011 to 2016">
+        <button
+          id="dilma-button"
+          onClick="selectPeriod('dilma')"
+          aria-label="Dilma Rousseff, 2011 to 2016"
+        >
           <div class="grid">
             <div>
               <span class="absolute">🡸</span><img src="images/Dilma.jpg" />
@@ -122,7 +166,11 @@
         </button>
       </div>
       <div>
-        <button id="temer-button" onClick="selectPeriod('temer')" aria-label="Michel Temer, 2017 to 2018">
+        <button
+          id="temer-button"
+          onClick="selectPeriod('temer')"
+          aria-label="Michel Temer, 2017 to 2018"
+        >
           <div class="grid">
             <div>
               <span class="absolute">🡺</span><img src="images/Temer.jpg" />
@@ -136,7 +184,11 @@
         </button>
       </div>
       <div>
-        <button id="bolsonaro-button" onClick="selectPeriod('bolsonaro')" aria-label="Jair Bolsonaro, 2019 to 2022">
+        <button
+          id="bolsonaro-button"
+          onClick="selectPeriod('bolsonaro')"
+          aria-label="Jair Bolsonaro, 2019 to 2022"
+        >
           <div class="grid">
             <div>
               <span class="absolute">🡺</span><img src="images/Jair.jpg" />
@@ -358,7 +410,8 @@
 
       // Set zoom and min zoom by screen size
       const zoom = window.innerWidth > 800 ? 5.28 : 4.8;
-      const minZoom = window.innerWidth > 800 ? 4.8 : 4;
+      let minZoom = window.innerWidth > 800 ? 4.8 : 3.8;
+      minZoom = window.innerWidth < 600 ? 3 : minZoom;
 
       const myAttribution = `Map by <a href="https://pauln.dev" class="attribution-link">Paul Naylor</a> | `;
       const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" class="attribution-link">MapBiomas Brasil</a>`;
@@ -396,10 +449,12 @@
         playing: false,
       };
 
+      const zoomPosition = window.innerWidth > 420 ? "top-left" : "right";
+
       // Add zoom and rotation controls to the map.
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
-        "right",
+        zoomPosition,
       );
 
       // Disable rotation via right-click + drag
@@ -585,5 +640,4 @@
       }
     </script>
   </body>
-
 </html>
