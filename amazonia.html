@@ -62,6 +62,8 @@
               href="https://www.sciencefocus.com/news/amazon-drying-out"
               title="The Amazon is drying at an alarming pace – and nearing a devastating tipping point"
               aria-label="The Amazon is drying at an alarming pace – and nearing a devastating tipping point"
+              target="_blank"
+              rel="noopener noreferrer"
               >BBC</a
             >).
           </small>
@@ -84,7 +86,7 @@
           class="icon-button button-highlight"
           onClick="closeIntro()"
         >
-          &#10006;
+          &#10006; // X symbol
         </button>
       </div>
     </div>
@@ -215,6 +217,7 @@
       <span id="glyph" class="chevron glyphicon glyphicon-chevron-down"></span>
       <h2>Amazonia Deforestation</h2>
       <div id="info-block"></div>
+
       <div id="1994-info">
         <strong class="period">1994</strong>
         <table style="color: white; background-color: transparent">
@@ -248,6 +251,7 @@
           </tbody>
         </table>
       </div>
+
       <div id="cardoso-info">
         <strong class="period">1995 - 2002</strong>
         <p><strong>President:</strong> Fernando Cardoso</p>
@@ -264,6 +268,7 @@
           </a>
         </small>
       </div>
+
       <div id="lula-info">
         <strong class="period">2003 - 2010</strong>
         <p><strong>President:</strong> Luiz Inácio Lula da Silva</p>
@@ -284,6 +289,7 @@
           </a>
         </small>
       </div>
+
       <div id="dilma-info">
         <strong class="period">2011 - 2016</strong>
         <p><strong>President:</strong> Dilma Rousseff</p>
@@ -300,6 +306,7 @@
           </a>
         </small>
       </div>
+
       <div id="temer-info">
         <strong class="period">2017 - 2018</strong>
         <p><strong>President:</strong> Michel Temer</p>
@@ -316,6 +323,7 @@
           </a>
         </small>
       </div>
+
       <div id="bolsonaro-info">
         <strong class="period">2019 - 2022</strong>
         <p><strong>President:</strong> Jair Bolsonaro</p>
@@ -332,6 +340,7 @@
           </a>
         </small>
       </div>
+
       <div id="2023-info">
         <strong class="period">2023</strong>
         <table class="diff">
@@ -404,9 +413,6 @@
 
     <script>
       // Map Setup
-      // Layers:
-      // SW [-73.99, -16.67]
-      // NE [-43.39, 5.27]
 
       const bounds = [
         // SW [W, S]
@@ -415,7 +421,7 @@
         [-43.4, 5.3],
       ];
 
-      // Max bounds - must be wide enough to fit bounds within screen initially
+      // Max bounds must be wide enough to fit bounds within screen initially
       const maxBounds = [
         // SW [W, S]
         [-83, -21.6],
@@ -423,25 +429,26 @@
         [-38.4, 10.3],
       ];
 
-      // Set zoom and min zoom by screen size
+      // Adjust min zoom by screen size
       let minZoom = window.innerWidth < 600 ? 2.8 : 4;
       minZoom = window.innerWidth > 1280 ? 4.5 : minZoom;
 
-      const myAttribution = `Map by <a href="https://pauln.dev" class="attribution-link">Paul Naylor</a> | `;
-      const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" class="attribution-link">MapBiomas Brasil</a>`;
+      // Attributions
+      const byAttribution = `Map by <a href="https://pauln.dev" target="_blank" class="attribution-link">Paul Naylor</a> | `;
+      const dataAttribution = `Data © <a href="https://plataforma.brasil.mapbiomas.org" target="_blank" class="attribution-link">MapBiomas Brasil</a>`;
 
+      // Initialize the map
       mapboxgl.accessToken =
         "pk.eyJ1IjoicGF1bGVuIiwiYSI6ImNtbmY2bTJzYTA3MzUycG5hcXFmMzIzemkifQ.PRYMITPnkL-dduQ9bivpvg";
 
-      // Initialize the map
       const map = new mapboxgl.Map({
         container: "map", // container id
-        style: "mapbox://styles/paulen/cmpd4g2qt002w01sn148gf09u",
+        style: "mapbox://styles/paulen/cmq3dc43t001i01snfo94hm7m",
         minZoom: minZoom,
         maxZoom: 10,
         bounds: bounds,
         maxBounds: maxBounds,
-        customAttribution: myAttribution + dataAttribution,
+        customAttribution: byAttribution + dataAttribution,
       });
 
       const periods = [
@@ -462,17 +469,15 @@
         playing: false,
       };
 
+      // Zoom buttons
       const zoomPosition = window.innerWidth > 420 ? "top-left" : "right";
-
-      // Add zoom and rotation controls to the map.
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
         zoomPosition,
       );
 
-      // Disable rotation via right-click + drag
+      // Disable rotation via touch and right-click + drag
       map.dragRotate.disable();
-      // Disable rotation via touch gesture
       map.touchZoomRotate.disableRotation();
 
       // Load first period
@@ -480,6 +485,7 @@
         selectPeriod(state.period);
       });
 
+      // Interface elements
       const infoPanel = document.getElementById("info-panel");
       const infoGlyph = document.getElementById("glyph");
       const playButton = document.getElementById("play-button");
@@ -490,7 +496,7 @@
       backButton.disabled = true;
       period1Button.disabled = true;
 
-      // Nav Functions
+      /* Nav Functions */
 
       // Nav to previous period when back button pressed
       backButton.addEventListener("click", () => {
