@@ -254,7 +254,7 @@ table.diff td {
 }
 
 .button-highlight {
-  animation: highlightPulse 2s ease-in-out 8;
+  animation: highlightPulse 3s ease-in-out infinite;
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
