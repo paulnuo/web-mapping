@@ -13,6 +13,12 @@ button {
   color: white;
 }
 
+button:disabled:not([class]) {
+  box-shadow: inset 0px 0px 8px 0px cyan;
+  background-color: darkgreen;
+  opacity: 0.88;
+}
+
 button img {
   height: 4.8em;
 }
@@ -126,7 +132,7 @@ table.diff td {
   width: 360px;
   height: 48px;
   padding: 4px;
-  background: rgba(240, 240, 240, 0.68);
+  background: rgba(238, 238, 238, 0.92);
   transition:
     width 2s,
     height 2s;
@@ -161,7 +167,7 @@ table.diff td {
   padding-left: 12px;
   z-index: 10;
   grid-template-columns: 20fr 1fr;
-  background: rgba(240, 240, 240, 1);
+  background: rgba(238, 238, 238, 0.9);
   box-shadow: inset 0px 0px 20px 0px green;
   border-radius: 8px;
   opacity: 1;
@@ -190,7 +196,7 @@ table.diff td {
   z-index: 2;
   width: 114px;
   height: 161px;
-  background: rgba(100, 100, 100, 0.88);
+  background: rgba(218, 218, 218, 0.94);
   transition: /* this is the time it takes for the container to transition */
     width 2s,
     height 2s;
