@@ -131,8 +131,7 @@
         >
           <div class="grid">
             <div>
-              <span class="absolute">🡺</span>
-              <img src="images/Cardoso.jpg" alt="President Cardoso" />
+              <span class="absolute">⇒</span><img src="images/Cardoso.jpg" />
             </div>
             <div>
               Fernando Cardoso
@@ -150,8 +149,7 @@
         >
           <div class="grid">
             <div>
-              <span class="absolute">🡸</span>
-              <img src="images/Lula.jpg" alt="President Lula" />
+              <span class="absolute">⇐</span><img src="images/Lula.jpg" />
             </div>
             <div>
               Lula da Silva
@@ -169,8 +167,7 @@
         >
           <div class="grid">
             <div>
-              <span class="absolute">🡸</span>
-              <img src="images/Dilma.jpg" alt="President Rousseff" />
+              <span class="absolute">⇐</span><img src="images/Dilma.jpg" />
             </div>
             <div>
               Dilma Rousseff
@@ -188,8 +185,7 @@
         >
           <div class="grid">
             <div>
-              <span class="absolute">🡺</span>
-              <img src="images/Temer.jpg" alt="President Temer" />
+              <span class="absolute">⇒</span><img src="images/Temer.jpg" />
             </div>
             <div>
               Michel Temer
@@ -207,8 +203,7 @@
         >
           <div class="grid">
             <div>
-              <span class="absolute">🡺</span>
-              <img src="images/Jair.jpg" alt="President Bolsonaro" />
+              <span class="absolute">⇒</span><img src="images/Jair.jpg" />
             </div>
             <div>
               Jair Bolsonaro
@@ -455,8 +450,7 @@
       minZoom = window.innerWidth > 1280 ? 4.5 : minZoom;
 
       // Attributions
-      const byAttribution =
-        `
+      const byAttribution = `
           <a href="https://creativecommons.org/licenses/by/4.0/" aria-label="Creative Commons Attribution" target="_blank" rel="noopener noreferrer">
           CC By</a>
           <a href="https://pauln.dev" target="_blank" class="attribution-link">Paul Naylor</a> |
@@ -495,8 +489,10 @@
         playing: false,
       };
 
-      // Zoom buttons
-      const zoomPosition = window.innerWidth > 420 ? "top-left" : "right";
+      const zoomPosition = "right";
+      // const zoomPosition = window.innerWidth > 420 ? "top-left" : "right";
+
+      // Add zoom and rotation controls to the map.
       map.addControl(
         new mapboxgl.NavigationControl({ showCompass: false }),
         zoomPosition,
